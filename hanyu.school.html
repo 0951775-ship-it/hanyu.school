@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ee">
+  <meta name="description" content="Онлайн-школа китайского языка HANYU SCHOOL. Курсы, подготовка к HSK, разговорная практика и занятия с преподавателем.">
+  <title>HANYU SCHOOL — онлайн-школа китайского языка</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #24231f;
+      --muted: #6d6c65;
+      --canvas: #f7f4ee;
+      --paper: #fffefa;
+      --line: #e7e2d8;
+      --red: #b94332;
+      --red-dark: #943729;
+      --red-soft: #f7e9e4;
+      --gold: #a98448;
+      --gold-soft: #f3ecdc;
+      --sage: #54755c;
+      --sage-soft: #eaf0e8;
+      --shadow: 0 18px 50px rgba(55, 45, 31, .07);
+      --focus: #165b92;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); font-size: 16px; line-height: 1.55; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .container { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+    .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,254,250,.93); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .header-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-width: 220px; }
+    .brand-mark { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 14px 14px 14px 4px; color: #fff; background: var(--red); font-weight: 800; font-size: 14px; letter-spacing: -.05em; }
+    .brand-title { display: block; font-size: 13px; font-weight: 850; letter-spacing: .12em; line-height: 1.2; }
+    .brand-subtitle { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; letter-spacing: .025em; }
+    .nav { display: flex; align-items: center; gap: clamp(14px, 2.2vw, 30px); }
+    .nav a:not(.nav-cta) { color: #57574f; font-size: 12px; font-weight: 650; }
+    .nav a:not(.nav-cta):hover { color: var(--red-dark); }
+    .nav-cta, .button { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 0 17px; border: 1px solid transparent; border-radius: 10px; font-size: 12px; font-weight: 750; transition: background .18s ease, transform .18s ease, border-color .18s ease; cursor: pointer; }
+    .nav-cta, .button-primary { color: #fff; background: var(--red); }
+    .nav-cta:hover, .button-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+    .menu-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); font-size: 0; cursor: pointer; }
+    .menu-toggle::before { content: ""; width: 17px; height: 13px; background: linear-gradient(to bottom, currentColor 0 2px, transparent 2px 5px, currentColor 5px 7px, transparent 7px 10px, currentColor 10px 12px); }
+    .hero { position: relative; overflow: hidden; margin-top: 34px; display: grid; grid-template-columns: 1.08fr .92fr; min-height: 440px; border: 1px solid #e9e1d4; border-radius: 24px; background: #f0e9dc; box-shadow: var(--shadow); }
+    .hero-copy { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(30px, 5.4vw, 68px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--red-dark); font-size: 10px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+    h1 { max-width: 670px; margin: 17px 0 16px; font-size: clamp(42px, 5.2vw, 68px); font-weight: 740; line-height: 1.02; letter-spacing: -.065em; }
+    .hero-copy > p { max-width: 535px; margin: 0; color: #66645c; font-size: 16px; line-height: 1.7; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 27px; }
+    .button-secondary { color: #41413b; border-color: #ded8cd; background: rgba(255,254,250,.68); }
+    .button-secondary:hover { background: #fffefa; border-color: #cec5b7; }
+    .hero-art { position: relative; min-height: 390px; overflow: hidden; display: grid; place-items: center; background: #b94332; }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; }
+    .hero-art::before { width: 430px; height: 430px; right: 0; top: -135px; }
+    .hero-art::after { width: 310px; height: 310px; right: 40px; top: -77px; }
+    .art-grid { position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(rgba(255,255,255,.32) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.32) 1px, transparent 1px); background-size: 36px 36px; mask-image: linear-gradient(115deg, transparent 8%, #000 100%); }
+    .art-card { position: relative; width: min(330px, 76%); min-height: 260px; padding: 27px; border: 1px solid rgba(255,255,255,.75); border-radius: 18px; background: #fbf7ef; box-shadow: 0 20px 50px rgba(65, 22, 16, .22); transform: rotate(-4deg); }
+    .art-card-top { display: flex; align-items: center; justify-content: space-between; color: #827f75; font-size: 9px; font-weight: 850; letter-spacing: .14em; }
+    .art-seal { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #d6a69a; border-radius: 50%; color: var(--red); font-size: 11px; letter-spacing: -.04em; }
+    .art-card h2 { max-width: 240px; margin: 32px 0 10px; font-size: 28px; line-height: 1.12; letter-spacing: -.05em; }
+    .art-card p { margin: 0; color: #77746c; font-size: 12px; }
+    .art-line { height: 1px; width: 100%; margin: 22px 0 14px; background: #e7e0d5; }
+    .art-steps { display: flex; gap: 7px; }
+    .art-steps span { height: 6px; flex: 1; border-radius: 8px; background: #e5ddd0; }
+    .art-steps span:first-child { background: var(--red); }
+    .art-float { position: absolute; right: 11%; bottom: 5%; z-index: 2; padding: 10px 14px; border: 1px solid rgba(255,255,255,.36); border-radius: 10px; color: #fff; background: rgba(96,30,23,.2); font-size: 10px; font-weight: 750; letter-spacing: .04em; backdrop-filter: blur(6px); }
+    .proof-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 20px; border: 1px solid var(--line); border-radius: 15px; background: var(--line); overflow: hidden; }
+    .proof-item { padding: 18px 22px; background: var(--paper); }
+    .proof-item strong { display: block; font-size: 18px; line-height: 1.15; letter-spacing: -.03em; }
+    .proof-item span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    .section { margin-top: 70px; scroll-margin-top: 100px; }
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+    .section-kicker { margin: 0 0 7px; color: #8d8a80; font-size: 10px; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    h2.section-title { margin: 0; font-size: clamp(27px, 3.4vw, 40px); font-weight: 730; line-height: 1.1; letter-spacing: -.055em; }
+    .section-intro { max-width: 420px; margin: 0; color: var(--muted); font-size: 13px; }
+    .course-card { display: grid; grid-template-columns: minmax(0,1fr) 270px; gap: 28px; padding: clamp(23px, 3.4vw, 36px); border: 1px solid var(--line); border-radius: 19px; background: var(--paper); box-shadow: 0 5px 22px rgba(55,45,31,.025); }
+    .course-card + .course-card { margin-top: 17px; }
+    .course-main { min-width: 0; }
+    .course-meta { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; color: #858278; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .course-index { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid #e4d9c8; border-radius: 9px; color: var(--red-dark); background: #fbf6ee; font-size: 10px; letter-spacing: 0; }
+    h3.course-title { margin: 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.18; font-weight: 730; letter-spacing: -.045em; }
+    .course-desc { margin: 9px 0 0; color: var(--muted); font-size: 13px; }
+    .feature-list { list-style: none; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px 20px; margin: 22px 0 0; padding: 0; }
+    .feature-list li { position: relative; padding-left: 22px; color: #55554e; font-size: 12px; line-height: 1.55; }
+    .feature-list li::before { content: ""; position: absolute; top: 6px; left: 0; width: 11px; height: 11px; border: 1px solid #d8a69a; border-radius: 50%; background: radial-gradient(circle, var(--red) 0 2px, transparent 2.5px); }
+    .result-box { margin-top: 21px; padding: 15px 17px; border-left: 3px solid var(--sage); border-radius: 0 10px 10px 0; background: var(--sage-soft); color: #4c6250; font-size: 12px; }
+    .result-box strong { color: #384e3d; }
+    .price-panel { align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 22px; border-radius: 15px; background: #f6f2eb; }
+    .price-label { color: #858278; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .price-value { margin-top: 7px; font-size: 31px; font-weight: 760; line-height: 1.15; letter-spacing: -.055em; }
+    .price-period { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .price-panel .button { width: 100%; margin-top: 19px; }
+    .price-note { margin: 12px 0 0; color: #88867d; font-size: 10px; }
+    .hsk-card { grid-template-columns: minmax(0,1fr) 340px; }
+    .plan-stack { display: grid; align-content: center; gap: 10px; }
+    .plan { position: relative; padding: 17px; border: 1px solid #e1dbcf; border-radius: 13px; background: #f8f5ef; }
+    .plan-featured { border-color: #d6b87d; background: #f5efdf; }
+    .plan-name { color: #77746b; font-size: 11px; font-weight: 700; }
+    .plan-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 6px; }
+    .plan-price { font-size: 22px; font-weight: 750; line-height: 1.1; letter-spacing: -.045em; }
+    .plan-price small { color: #7b786e; font-size: 10px; font-weight: 600; letter-spacing: 0; }
+    .deal { padding: 5px 8px; border-radius: 6px; color: #65502a; background: #e9d9ae; font-size: 9px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .plan .button { width: 100%; min-height: 40px; margin-top: 13px; }
+    .price-included { margin-top: 3px; color: #87847b; font-size: 10px; }
+    .simple-price-card { grid-template-columns: minmax(0,1fr) 250px; }
+    .teacher-card { grid-template-columns: minmax(0,1fr); }
+    .teacher-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+    .availability { flex: 0 0 auto; padding: 8px 11px; border-radius: 8px; color: #7a5a28; background: var(--gold-soft); font-size: 10px; font-weight: 750; }
+    .teacher-intro { max-width: 690px; margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+    .teacher-prices { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 24px; }
+    .teacher-plan { display: flex; flex-direction: column; align-items: flex-start; padding: 18px; border: 1px solid var(--line); border-radius: 13px; background: #faf8f3; }
+    .teacher-plan h4 { margin: 0; font-size: 13px; line-height: 1.35; }
+    .teacher-plan .price-value { margin-top: 9px; font-size: 25px; }
+    .teacher-plan .price-period { margin-top: 3px; }
+    .teacher-plan .button { width: 100%; margin-top: 15px; }
+    .club-card { grid-template-columns: minmax(0,1fr) 310px; }
+    .level-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .level-pill { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid #e5dfd4; border-radius: 8px; color: #55554e; background: #faf8f3; font-size: 10px; }
+    .level-pill strong { color: var(--red-dark); font-size: 10px; }
+    .club-spots { margin-top: 16px; color: #77746b; font-size: 11px; }
+    .club-spots strong { color: var(--red-dark); }
+    .club-prices { display: grid; gap: 10px; align-content: center; }
+    .club-plan { padding: 17px; border: 1px solid #e4ddd1; border-radius: 13px; background: #f6f2eb; }
+    .club-plan .price-value { font-size: 24px; }
+    .club-plan .button { width: 100%; margin-top: 13px; }
+    .why { margin-top: 70px; padding: 35px; border-radius: 20px; background: #252823; color: #fffefa; }
+    .why-grid { display: grid; grid-template-columns: 1.15fr repeat(3,1fr); gap: 20px; align-items: start; }
+    .why h2 { margin: 0; font-size: 27px; line-height: 1.15; letter-spacing: -.045em; }
+    .why-intro { margin: 9px 0 0; color: #c4c4b9; font-size: 12px; }
+    .why-item { padding-left: 17px; border-left: 1px solid rgba(255,255,255,.18); }
+    .why-item strong { display: block; font-size: 12px; }
+    .why-item p { margin: 7px 0 0; color: #c4c4b9; font-size: 11px; line-height: 1.6; }
+    .final-cta { margin: 70px 0 42px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 30px; border: 1px solid #ead6cf; border-radius: 17px; background: var(--red-soft); }
+    .final-cta h2 { margin: 0; font-size: clamp(22px, 2.7vw, 31px); line-height: 1.15; letter-spacing: -.045em; }
+    .final-cta p { margin: 7px 0 0; color: #725d56; font-size: 12px; }
+    .final-cta .button { flex: 0 0 auto; }
+    .faq-list { display: grid; gap: 10px; }
+    .faq-item { overflow: hidden; border: 1px solid var(--line); border-radius: 13px; background: var(--paper); }
+    .faq-item summary { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 15px 20px; cursor: pointer; font-size: 13px; font-weight: 730; line-height: 1.45; list-style: none; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: "+"; flex: 0 0 auto; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; color: var(--red-dark); background: var(--red-soft); font-size: 18px; font-weight: 500; }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-answer { max-width: 900px; padding: 0 20px 19px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .faq-answer p { margin: 0; }
+    .faq-contact { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 18px; padding: 19px 21px; border: 1px solid #ead6cf; border-radius: 14px; background: var(--red-soft); }
+    .faq-contact p { margin: 0; color: #725d56; font-size: 13px; }
+    .faq-contact a { flex: 0 0 auto; color: var(--red-dark); font-size: 12px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+    .site-footer { padding: 22px 0 30px; border-top: 1px solid var(--line); color: #85837b; font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+    .backdrop { display: none; }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+    @media (prefers-color-scheme: dark) {
+      :root { color-scheme: dark; --ink:#f2f0e9; --muted:#b9b8ae; --canvas:#1b1c1a; --paper:#222320; --line:#393a36; --red:#dc715e; --red-dark:#f18a77; --red-soft:#382723; --gold:#d3b77e; --gold-soft:#393324; --sage:#91b79a; --sage-soft:#27362b; --shadow:0 18px 50px rgba(0,0,0,.2); --focus:#8bbcf0; }
+      .site-header { background:rgba(32,33,31,.94); }
+      .nav a:not(.nav-cta) { color:#c8c7bf; }
+      .hero { background:#302b24; border-color:#494237; }
+      .hero-copy > p { color:#c1beb4; }
+      .hero-art { background:#873c31; }
+      .art-card { background:#282823; border-color:#45453f; }
+      .art-card-top,.art-card p { color:#b5b3a9; }
+      .art-line { background:#44433d; }
+      .art-steps span { background:#48463e; }
+      .proof-item { background:#222320; }
+      .section-kicker,.course-meta,.price-label,.plan-name { color:#aaa89f; }
+      .course-index { background:#302c25; border-color:#51483a; }
+      .feature-list li { color:#d1d0c8; }
+      .result-box { background:#27362b; color:#c7d3c6; }
+      .result-box strong { color:#e0e9dc; }
+      .price-panel,.plan,.teacher-plan,.club-plan { background:#2b2c28; border-color:#45453f; }
+      .plan-featured { background:#373123; border-color:#6a5834; }
+      .deal { background:#544829; color:#f0d798; }
+      .level-pill { background:#2b2c28; border-color:#45453f; color:#d2d1c9; }
+      .availability { background:#393324; color:#e8d19f; }
+      .why { background:#292d29; }
+      .final-cta { background:#382723; border-color:#573a32; }
+      .final-cta p { color:#d1b8b1; }
+      .faq-item { background:#222320; border-color:#393a36; }
+      .faq-item summary::after { background:#382723; }
+      .faq-contact { background:#382723; border-color:#573a32; }
+      .faq-contact p { color:#d1b8b1; }
+      .faq-contact a { color:#f18a77; }
+      .button-secondary,.menu-toggle { background:#2b2c28; color:#e5e4dc; border-color:#45453f; }
+      .button-secondary:hover { background:#383934; }
+      .site-footer { color:#aaa99f; }
+    }
+    @media (max-width: 900px) {
+      .container { width: min(100% - 36px, 760px); }
+      .header-inner { min-height: 70px; }
+      .brand { min-width: 0; }
+      .nav { gap: 14px; }
+      .nav a:not(.nav-cta) { font-size: 11px; }
+      .hero { grid-template-columns: 1fr .82fr; min-height: 390px; }
+      .hero-copy { padding: 34px; }
+      .hero-art { min-height: 360px; }
+      .course-card,.hsk-card,.simple-price-card,.club-card { grid-template-columns: minmax(0,1fr) 250px; gap: 20px; }
+      .hsk-card { grid-template-columns: minmax(0,1fr) 300px; }
+      .why-grid { grid-template-columns: repeat(3,1fr); }
+      .why-grid > div:first-child { grid-column: 1/-1; }
+    }
+    @media (max-width: 700px) {
+      html { scroll-padding-top: 80px; }
+      .container { width: min(100% - 32px, 560px); }
+      .header-inner { min-height: 66px; gap: 12px; }
+      .menu-toggle { display: inline-flex; flex: 0 0 auto; }
+      .brand { margin-right: auto; }
+      .nav { position: absolute; left: 0; right: 0; top: 66px; display: none; align-items: stretch; padding: 12px 16px 18px; border-bottom: 1px solid var(--line); background: var(--paper); box-shadow: 0 14px 22px rgba(35,33,28,.08); }
+      .nav.is-open { display: grid; }
+      .nav a:not(.nav-cta) { min-height: 42px; display: flex; align-items: center; padding: 0 9px; font-size: 13px; }
+      .nav-cta { margin-top: 3px; }
+      .hero { grid-template-columns: 1fr; margin-top: 18px; border-radius: 18px; }
+      .hero-copy { padding: 29px 23px 26px; }
+      h1 { font-size: clamp(40px, 11vw, 54px); }
+      .hero-copy > p { font-size: 14px; }
+      .hero-buttons { width: 100%; }
+      .hero-buttons .button { flex: 1 1 145px; }
+      .hero-art { min-height: 280px; }
+      .art-card { min-height: 214px; width: min(290px, 74%); padding: 21px; }
+      .art-card h2 { margin-top: 21px; font-size: 24px; }
+      .hero-art::before { width: 330px; height: 330px; }
+      .hero-art::after { width: 235px; height: 235px; }
+      .art-float { display: none; }
+      .proof-row { grid-template-columns: 1fr; }
+      .proof-item { padding: 14px 17px; }
+      .proof-item strong { font-size: 16px; }
+      .section { margin-top: 52px; }
+      .section-head { display: block; margin-bottom: 17px; }
+      .section-intro { margin-top: 10px; }
+      .course-card,.hsk-card,.simple-price-card,.club-card,.teacher-card { grid-template-columns: 1fr; gap: 22px; padding: 21px; }
+      .feature-list { grid-template-columns: 1fr; gap: 9px; margin-top: 18px; }
+      .price-panel { min-height: 0; }
+      .plan-stack { grid-template-columns: 1fr; }
+      .teacher-top { flex-direction: column; }
+      .teacher-prices { grid-template-columns: 1fr; }
+      .teacher-plan { padding: 17px; }
+      .why { margin-top: 52px; padding: 23px; }
+      .why-grid { grid-template-columns: 1fr; gap: 18px; }
+      .why-grid > div:first-child { grid-column: auto; }
+      .why-item { padding-left: 13px; }
+      .final-cta { margin: 52px 0 32px; flex-direction: column; align-items: flex-start; padding: 22px; }
+      .final-cta .button { width: 100%; }
+      .faq-contact { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mainNav">Меню</button>
+      <a class="brand" href="#top" aria-label="HANYU SCHOOL — на главную">
+        <span class="brand-mark" aria-hidden="true">HS</span>
+        <span><span class="brand-title">HANYU SCHOOL</span><span class="brand-subtitle">онлайн-школа китайского языка</span></span>
+      </a>
+      <nav class="nav" id="mainNav" aria-label="Основная навигация">
+        <a href="#courses">Курсы</a>
+        <a href="#teacher">С преподавателем</a>
+        <a href="#club">Разговорный клуб</a>
+        <a href="#faq">Вопросы</a>
+        <a class="nav-cta" href="#courses">Выбрать курс <span aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="eyebrow">Онлайн-школа китайского языка</span>
+          <h1 id="hero-title">Китайский — понятнее с каждым шагом</h1>
+          <p>Выберите свой формат: начните с основ, подготовьтесь к HSK, заговорите увереннее или занимайтесь с преподавателем.</p>
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#courses">Выбрать программу <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#teacher">Занятия с преподавателем</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Образ учебного пути от первых шагов к свободной речи">
+          <div class="art-grid" aria-hidden="true"></div>
+          <div class="art-card">
+            <div class="art-card-top"><span>ПЛАН ОБУЧЕНИЯ</span><span class="art-seal">HS</span></div>
+            <h2>От первых тонов к свободной речи</h2>
+            <p>Урок за уроком — в вашем ритме.</p>
+            <div class="art-line"></div>
+            <div class="art-steps" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <div class="art-float">ПРАКТИКА · СИСТЕМА · РЕЗУЛЬТАТ</div>
+        </div>
+      </section>
+
+      <div class="proof-row" aria-label="Форматы обучения">
+        <div class="proof-item"><strong>5 форматов</strong><span>для разных целей и уровня</span></div>
+        <div class="proof-item"><strong>От основ до HSK 6</strong><span>выберите подходящий маршрут</span></div>
+        <div class="proof-item"><strong>Онлайн</strong><span>учитесь там, где удобно</span></div>
+      </div>
+
+      <section class="section" id="courses" aria-labelledby="courses-title">
+        <div class="section-head">
+          <div><p class="section-kicker">Выберите свой маршрут</p><h2 class="section-title" id="courses-title">Программы обучения</h2></div>
+          <p class="section-intro">Изучайте китайский самостоятельно, с преподавателем или в небольшой разговорной группе.</p>
+        </div>
+
+        <article class="course-card" id="beginner" aria-labelledby="beginner-title">
+          <div class="course-main">
+            <div class="course-meta"><span class="course-index">01</span>Курс для начинающих</div>
+            <h3 class="course-title" id="beginner-title">Китайский язык с нуля</h3>
+            <ul class="feature-list">
+              <li>Знакомство с китайской фонетикой и системой пиньинь.</li>
+              <li>Изучение четырёх тонов и правильного произношения.</li>
+              <li>Освоение иероглифики: написание, чтение и запоминание иероглифов.</li>
+              <li>Изучение базовой грамматики и построения предложений.</li>
+              <li>Освоение первых слов и полезных выражений.</li>
+              <li>Формирование навыков понимания простых текстов и диалогов.</li>
+              <li>Постепенный переход от базовых знаний к самостоятельному общению.</li>
+            </ul>
+            <div class="result-box"><strong>Результат обучения:</strong> к концу курса вы получите хорошую базу китайского для дальнейшего изучения языка.</div>
+          </div>
+          <aside class="price-panel" aria-label="Стоимость курса китайского с нуля">
+            <span class="price-label">Стоимость курса</span>
+            <span class="price-value">4 990 ₽</span>
+            <span class="price-period">полная программа</span>
+            <a class="button button-primary" href="https://t.me/m/I7_nBnL8YzQy" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            <p class="price-note">Оплата и оформление — в Telegram.</p>
+          </aside>
+        </article>
+
+        <article class="course-card hsk-card" id="hsk" aria-labelledby="hsk-title">
+          <div class="course-main">
+            <div class="course-meta"><span class="course-index">02</span>Экзаменационная подготовка</div>
+            <h3 class="course-title" id="hsk-title">Подготовка к HSK</h3>
+            <ul class="feature-list">
+              <li>Изучение лексики и грамматики в соответствии с уровнем HSK.</li>
+              <li>Разбор экзаменационных заданий и форматов.</li>
+              <li>Развитие навыков аудирования, чтения и письма.</li>
+              <li>Работа с типичными ошибками.</li>
+              <li>Пробные тесты и тренировка выполнения заданий на время.</li>
+              <li>Подготовка к успешной сдаче экзамена.</li>
+              <li>Постоянное обновление материала.</li>
+            </ul>
+            <div class="result-box"><strong>Результат обучения:</strong> подготовка к сдаче международного экзамена на высокий балл.</div>
+          </div>
+          <div class="plan-stack" aria-label="Тарифы подготовки к HSK">
+            <div class="plan">
+              <div class="plan-name">Ежемесячный доступ</div>
+              <div class="plan-price-row"><span class="plan-price">5 990 ₽ <small>/ месяц</small></span></div>
+              <a class="button button-primary" href="https://t.me/m/vgCnryeJYzRi" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="plan plan-featured">
+              <div class="plan-price-row"><span class="plan-name">Доступ на 6 месяцев</span><span class="deal">Выгодно</span></div>
+              <div class="plan-price-row"><span class="plan-price">30 990 ₽ <small>/ 6 месяцев</small></span></div>
+              <a class="button button-primary" href="https://t.me/m/v5vReqxFYjli" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card simple-price-card" id="speaking" aria-labelledby="speaking-title">
+          <div class="course-main">
+            <div class="course-meta"><span class="course-index">03</span>Разговорная практика</div>
+            <h3 class="course-title" id="speaking-title">Устная практика и разговорный китайский</h3>
+            <ul class="feature-list">
+              <li>Развитие навыков общения на китайском языке.</li>
+              <li>Постановка правильного произношения и работа с тонами.</li>
+              <li>Расширение активного словарного запаса.</li>
+              <li>Практика диалогов на повседневные темы.</li>
+              <li>Обсуждение ситуаций: знакомство, путешествия, покупки, учёба, работа и другие темы.</li>
+              <li>Преодоление языкового барьера и развитие уверенности в речи.</li>
+            </ul>
+          </div>
+          <aside class="price-panel" aria-label="Стоимость разговорной практики">
+            <span class="price-label">Абонемент</span>
+            <span class="price-value">3 490 ₽</span>
+            <span class="price-period">в месяц</span>
+            <a class="button button-primary" href="https://t.me/m/yXHqmEFSZmMy" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+          </aside>
+        </article>
+
+        <article class="course-card teacher-card" id="teacher" aria-labelledby="teacher-title">
+          <div class="teacher-top">
+            <div>
+              <div class="course-meta"><span class="course-index">04</span>Персональные занятия</div>
+              <h3 class="course-title" id="teacher-title">Изучение китайского с преподавателем</h3>
+              <p class="teacher-intro">Индивидуальные занятия с программой под вашу цель — от первых шагов до экзамена и свободной речи. Перед началом занятий проводится пробный урок (15–30 минут), чтобы определить программу и уровень языка.</p>
+            </div>
+            <span class="availability">Доступно 10 мест</span>
+          </div>
+          <ul class="feature-list">
+            <li>Индивидуальные занятия.</li>
+            <li>Изучение китайского с самых основ.</li>
+            <li>Постановка произношения и тонов.</li>
+            <li>Изучение иероглифов и грамматики.</li>
+            <li>Домашние задания и их проверка.</li>
+            <li>Разговорная практика.</li>
+            <li>Постепенная подготовка к HSK.</li>
+            <li>Учебные материалы и аудиозаписи.</li>
+          </ul>
+          <div class="teacher-prices" aria-label="Стоимость индивидуальных занятий">
+            <div class="teacher-plan">
+              <h4>Китайский с нуля</h4>
+              <span class="price-value">1 800 ₽</span><span class="price-period">за час</span>
+              <a class="button button-primary" href="https://t.me/m/nTuQLlXONTQy" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="teacher-plan">
+              <h4>Подготовка к HSK</h4>
+              <span class="price-value">2 500 ₽</span><span class="price-period">за час</span>
+              <a class="button button-primary" href="https://t.me/m/VRhdFJETNWMy" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="teacher-plan">
+              <h4>Разговорный китайский</h4>
+              <span class="price-value">1 700 ₽</span><span class="price-period">за час</span>
+              <a class="button button-primary" href="https://t.me/m/D3LGW6CIN2Iy" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card club-card" id="club" aria-labelledby="club-title">
+          <div class="course-main">
+            <div class="course-meta"><span class="course-index">05</span>Практика в группе</div>
+            <h3 class="course-title" id="club-title">Разговорный клуб</h3>
+            <ul class="feature-list">
+              <li>Две разговорные встречи в неделю.</li>
+              <li>Общение с другими учениками на китайском языке.</li>
+              <li>Обсуждение интересных тем.</li>
+              <li>Практика повседневных диалогов.</li>
+              <li>Расширение словарного запаса.</li>
+              <li>Исправление ошибок и работа над произношением.</li>
+              <li>Новые темы и материалы каждую неделю.</li>
+              <li>Общение в небольшой группе.</li>
+            </ul>
+            <div class="level-pills" aria-label="Группы по уровням">
+              <span class="level-pill">Для начинающих <strong>HSK 1–2</strong></span>
+              <span class="level-pill">Для продолжающих <strong>HSK 3–4</strong></span>
+              <span class="level-pill">Для продвинутых <strong>HSK 5–6</strong></span>
+            </div>
+            <p class="club-spots">Доступно <strong>5 мест</strong> на каждую группу.</p>
+          </div>
+          <div class="club-prices" aria-label="Стоимость разговорного клуба">
+            <div class="club-plan">
+              <span class="price-label">Разовое занятие</span>
+              <span class="price-value">825 ₽</span>
+              <span class="price-period">за час</span>
+              <a class="button button-primary" href="https://t.me/m/BBWdqHssZWFi" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="club-plan">
+              <span class="price-label">Абонемент на месяц</span>
+              <span class="price-value">6 590 ₽</span>
+              <span class="price-period">8 занятий</span>
+              <a class="button button-primary" href="https://t.me/m/eIKZfFaINTVi" target="_blank" rel="noopener noreferrer">купить <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="faq" aria-labelledby="faq-title">
+        <div class="section-head">
+          <div><p class="section-kicker">Нужна подсказка?</p><h2 class="section-title" id="faq-title">Вопросы</h2></div>
+          <p class="section-intro">Ответы о курсах, занятиях и формате обучения.</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Если я оплачу курс, у меня останутся материалы?</summary>
+            <div class="faq-answer"><p>Да, материалы остаются у тебя навсегда. Для курсов на месяц после окончания срока без продления доступ к разделу закрывается, поэтому рекомендуем заранее сохранить материалы на своём устройстве.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли начать изучать китайский с нуля?</summary>
+            <div class="faq-answer"><p>Конечно! Для обучения не нужны предварительные знания. Мы начнём с основ: пиньиня, произношения, тонов, иероглифов и базовой грамматики. Постепенно ты научишься понимать китайскую речь и самостоятельно строить предложения.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Подойдут ли курсы, если я уже изучаю китайский?</summary>
+            <div class="faq-answer"><p>Да! Есть программы для разных уровней подготовки: от начинающих до продвинутых. Ты сможешь выбрать подходящий курс в зависимости от своих знаний и целей.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Как проходит подготовка к HSK?</summary>
+            <div class="faq-answer"><p>Ты получаешь доступ к структурированной программе подготовки, видеоурокам, аудиозаписям, словарям, грамматическим материалам и экзаменационным заданиям. Материалы регулярно обновляются.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Нужно ли покупать учебники дополнительно?</summary>
+            <div class="faq-answer"><p>Нет, основные учебные материалы уже включены в выбранный курс. Всё необходимое для обучения предоставляется в рамках программы.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Как проходят индивидуальные занятия?</summary>
+            <div class="faq-answer"><p>Занятия проходят онлайн. Мы работаем над произношением, грамматикой, лексикой, аудированием и разговорной речью. Программа адаптируется под твой уровень и цели.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Что такое разговорный клуб?</summary>
+            <div class="faq-answer"><p>Это пространство для регулярной практики китайского языка в небольшой группе. Мы обсуждаем интересные темы, учимся выражать мысли, разбираем новые слова и преодолеваем языковой барьер.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли совмещать курсы и индивидуальные занятия?</summary>
+            <div class="faq-answer"><p>Да! Более того, это отличный способ ускорить обучение. Готовые материалы помогают изучать теорию самостоятельно, индивидуальные занятия дают обратную связь, а разговорный клуб помогает применять знания на практике.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Как долго длится обучение?</summary>
+            <div class="faq-answer"><p>Всё зависит от твоего начального уровня, интенсивности занятий и поставленной цели. Ты можешь заниматься в комфортном темпе и постепенно переходить на следующий уровень.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Можно ли заниматься в удобное время?</summary>
+            <div class="faq-answer"><p>Готовые видеоматериалы доступны для самостоятельного изучения в удобное время. Индивидуальные занятия и разговорный клуб проходят по предварительному расписанию.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Как записаться на обучение?</summary>
+            <div class="faq-answer"><p>Выбери интересующее направление и свяжись со мной. Мы определим твой уровень, обсудим цели и подберём подходящий формат обучения.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Будет ли поддержка во время обучения?</summary>
+            <div class="faq-answer"><p>Да! В зависимости от выбранного формата ты получишь учебные материалы, задания, рекомендации и обратную связь. Ты не останешься один на один с китайским языком!</p></div>
+          </details>
+        </div>
+        <div class="faq-contact"><p>Не нашёл ответ на свой вопрос?</p><p><a href="https://t.me/m/ylBOouYJMDBi" target="_blank" rel="noopener noreferrer">Напиши мне</a> — с удовольствием помогу подобрать подходящую программу обучения!</p></div>
+      </section>
+
+      <section class="why" aria-labelledby="why-title">
+        <div class="why-grid">
+          <div><h2 id="why-title">Ваш китайский — ваш маршрут</h2><p class="why-intro">Выберите цель, а мы поможем двигаться к ней последовательно.</p></div>
+          <div class="why-item"><strong>Понятная система</strong><p>Материал выстроен от первых шагов к уверенному применению.</p></div>
+          <div class="why-item"><strong>Регулярная практика</strong><p>Закрепляйте знания в речи, заданиях и учебных материалах.</p></div>
+          <div class="why-item"><strong>Выбор формата</strong><p>Самостоятельно, индивидуально или вместе с группой.</p></div>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-label="Запись на обучение">
+        <div><h2>Готовы начать изучать китайский?</h2><p>Выберите программу и перейдите к оформлению в Telegram.</p></div>
+        <a class="button button-primary" href="#courses">Выбрать курс <span aria-hidden="true">↓</span></a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner"><span>HANYU SCHOOL · онлайн-школа китайского языка</span><span>Все цены указаны в рублях.</span></div>
+  </footer>
+
+  <script>
+    (() => {
+      const button = document.getElementById('menuToggle');
+      const nav = document.getElementById('mainNav');
+      const close = () => {
+        nav.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Открыть меню');
+      };
+      button.addEventListener('click', () => {
+        const open = !nav.classList.contains('is-open');
+        nav.classList.toggle('is-open', open);
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      });
+      nav.querySelectorAll('a').forEach(link => link.addEventListener('click', close));
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
+    })();
+  </script>
+</body>
+</html>
